@@ -1,0 +1,42 @@
+name: metube
+services:
+    metube:
+        cpu_shares: 50
+        command: []
+        container_name: metube
+        deploy:
+            resources:
+                limits:
+                    memory: "16198402048"
+        hostname: metube
+        image: ghcr.io/alexta69/metube:latest
+        labels:
+            icon: http://172.16.254.130:8081/assets/icons/apple-touch-icon.png
+        networks:
+            default: null
+        ports:
+            - mode: ingress
+              target: 8081
+              published: "8081"
+              protocol: tcp
+        restart: unless-stopped
+        volumes:
+            - type: bind
+              source: /srv/media/downloads
+              target: /downloads
+              bind:
+                create_host_path: true
+networks:
+    default:
+        name: metube_default
+x-casaos:
+    author: self
+    category: self
+    hostname: ""
+    icon: http://172.16.254.130:8081/assets/icons/apple-touch-icon.png
+    index: /
+    is_uncontrolled: false
+    port_map: "8081"
+    scheme: http
+    title:
+        custom: MeTube
